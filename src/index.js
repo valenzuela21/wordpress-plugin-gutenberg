@@ -1,1 +1,2 @@
 import "./testimonial";
+import "./hero";

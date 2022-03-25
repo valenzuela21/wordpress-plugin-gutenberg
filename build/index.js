@@ -43,6 +43,158 @@ var SvgGaLogo = function SvgGaLogo(props) {
 
 /***/ }),
 
+/***/ "./src/hero/index.js":
+/*!***************************!*\
+  !*** ./src/hero/index.js ***!
+  \***************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ga-logo.svg */ "./src/ga-logo.svg");
+
+const {
+  registerBlockType
+} = wp.blocks;
+const {
+  RichText,
+  MediaUpload,
+  BlockControls,
+  AlignmentToolbar
+} = wp.editor;
+const {
+  IconButton
+} = wp.components;
+/** import icons customs **/
+
+
+registerBlockType('ga/hero', {
+  title: 'GA Hero',
+  icon: {
+    src: _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
+  },
+  category: 'gourmet-artist',
+  attributes: {
+    titleHero: {
+      type: 'string',
+      source: 'html',
+      selector: '.hero-block h1'
+    },
+    descriptionHero: {
+      type: 'string',
+      source: 'html',
+      selector: '.hero-block p'
+    },
+    imageHero: {
+      type: 'string',
+      selector: '.hero-block'
+    },
+    alignContenHero: {
+      type: 'string',
+      default: 'center'
+    }
+  },
+  edit: props => {
+    // Extra of values the groups
+    const {
+      attributes: {
+        titleHero,
+        descriptionHero,
+        imageHero,
+        alignContenHero
+      },
+      setAttributes
+    } = props; // Access of title the hero
+
+    const onChangeTitle = titleTXT => {
+      setAttributes({
+        titleHero: titleTXT
+      });
+    };
+
+    const onChangeDescription = descriptionTXT => {
+      setAttributes({
+        descriptionHero: descriptionTXT
+      });
+    };
+
+    const onSelectImage = imagen => {
+      setAttributes({
+        imageHero: imagen.sizes.full.url
+      });
+    }; // Access Align toolbar
+
+
+    const onChangeLineContent = newAlign => {
+      setAttributes({
+        alignContenHero: newAlign
+      });
+    };
+
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "hero-block",
+      style: {
+        backgroundImage: `url(${imageHero})`
+      }
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(AlignmentToolbar, {
+      onChange: onChangeLineContent
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(MediaUpload, {
+      onSelect: onSelectImage,
+      type: "image",
+      value: imageHero,
+      render: _ref => {
+        let {
+          open
+        } = _ref;
+        return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(IconButton, {
+          onClick: open,
+          icon: "format-image",
+          showToolTip: "true",
+          label: "Change Image"
+        });
+      }
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
+      placeholder: "Add title",
+      value: titleHero,
+      onChange: onChangeTitle,
+      style: {
+        textAlign: alignContenHero
+      }
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
+      placeholder: "Add description",
+      value: descriptionHero,
+      onChange: onChangeDescription
+    })));
+  },
+  supports: {
+    align: ['wide', 'full']
+  },
+  save: props => {
+    const {
+      attributes: {
+        titleHero,
+        descriptionHero,
+        imageHero,
+        alignContenHero
+      }
+    } = props;
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "hero-block",
+      style: {
+        backgroundImage: `url(${imageHero})`,
+        textAlign: alignContenHero
+      }
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+      value: titleHero
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+      value: descriptionHero
+    })));
+  }
+});
+
+/***/ }),
+
 /***/ "./src/testimonial/index.js":
 /*!**********************************!*\
   !*** ./src/testimonial/index.js ***!
@@ -273,6 +425,8 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _testimonial__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./testimonial */ "./src/testimonial/index.js");
+/* harmony import */ var _hero__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hero */ "./src/hero/index.js");
+
 
 }();
 /******/ })()
