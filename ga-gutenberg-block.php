@@ -69,6 +69,7 @@ function ga_register_block(){
     $blocks =  array(
         'ga/testimonial',
         'ga/hero',
+        'ga/imagetext'
     );
     
     // Add register blocks in resgister_block_type

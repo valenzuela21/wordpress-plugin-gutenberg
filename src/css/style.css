@@ -98,14 +98,13 @@
     color: #a3015a;
 }
 .imagen-texto-block .contenedor{
-    max-width: 1000px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 .imagen-texto-block .contenido {
-    flex: 0 0 60%;
+    width: 60%;
     color: white;
 }
 .imagen-texto-block h1 {
@@ -116,7 +115,7 @@
 }
 .imagen-texto-block .contenido 
 .imagen-texto-block .imagen {
-    flex: 0 1 calc(40% - 2rem);
+   width: 40%;
 }
 .imagen-texto-block .boton {
     background-color: white;
@@ -175,7 +174,7 @@ h2.titulo-ultimas {
 }
 
 .alignfull {
-    margin: 32px calc(76% - 50vw);
+    margin: 32px calc(75% - 50vw);
 	max-width: 100vw;
 	width: 100vw;
 }

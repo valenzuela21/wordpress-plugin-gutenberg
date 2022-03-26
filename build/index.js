@@ -195,6 +195,208 @@ registerBlockType('ga/hero', {
 
 /***/ }),
 
+/***/ "./src/imagetext/index.js":
+/*!********************************!*\
+  !*** ./src/imagetext/index.js ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ga-logo.svg */ "./src/ga-logo.svg");
+
+const {
+  registerBlockType
+} = wp.blocks;
+const {
+  RichText,
+  MediaUpload,
+  URLInputButton,
+  BlockControls,
+  AlignmentToolbar
+} = wp.editor;
+const {
+  IconButton
+} = wp.components;
+/** import icons customs **/
+
+
+registerBlockType('ga/imagetext', {
+  title: 'GA Image Text',
+  icon: {
+    src: _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
+  },
+  category: 'gourmet-artist',
+  attributes: {
+    appTitulo: {
+      type: 'string',
+      source: 'html',
+      selector: '.imagen-text-block .contenido h1'
+    },
+    appDescription: {
+      type: 'string',
+      source: 'html',
+      selector: '.imagen-text-block .contenido p'
+    },
+    appImagen: {
+      type: 'string',
+      source: 'attribute',
+      attributes: 'src',
+      selector: '.imagen-text-block img',
+      default: _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
+    },
+    urlApp: {
+      type: 'string',
+      source: 'attribute',
+      attribute: 'href'
+    },
+    alignContent: {
+      type: 'string',
+      default: 'left'
+    }
+  },
+  supports: {
+    align: ['wide', 'full']
+  },
+  styles: [{
+    name: 'default',
+    label: 'Blue (default)',
+    isDefault: true
+  }, {
+    name: 'verde',
+    label: 'Green'
+  }, {
+    name: 'rosa',
+    label: 'Pink'
+  }],
+  edit: props => {
+    const {
+      attributes: {
+        appTitulo,
+        appDescription,
+        appImagen,
+        urlApp,
+        alignContent
+      },
+      setAttributes
+    } = props;
+
+    const onChangeTitle = newTitle => {
+      setAttributes({
+        appTitulo: newTitle
+      });
+    };
+
+    const onChangeDescription = newDescription => {
+      setAttributes({
+        appDescription: newDescription
+      });
+    };
+
+    const onSelectionImagen = newImagen => {
+      setAttributes({
+        appImagen: newImagen.sizes.full.url
+      });
+    };
+
+    const onChangeUrl = newUrl => {
+      setAttributes({
+        urlApp: newUrl
+      });
+    }; //Access Align content
+
+
+    const onAlignChange = newAlign => {
+      setAttributes({
+        alignContent: newAlign
+      });
+    };
+
+    return [(0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(AlignmentToolbar, {
+      onChange: onAlignChange,
+      value: alignContent
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "imagen-texto-block"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "contenedor"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "contenido"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
+      placeholder: "Add of title",
+      value: appTitulo,
+      onChange: onChangeTitle,
+      style: {
+        textAlign: alignContent
+      }
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
+      placeholder: "Add of description",
+      value: appDescription,
+      onChange: onChangeDescription,
+      style: {
+        textAlign: alignContent
+      }
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(URLInputButton, {
+      url: urlApp,
+      onChange: onChangeUrl
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: urlApp,
+      className: "boton"
+    }, "Descargar")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "imagen"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(MediaUpload, {
+      onSelect: onSelectionImagen,
+      type: "image",
+      value: appImagen,
+      render: _ref => {
+        let {
+          open
+        } = _ref;
+        return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(IconButton, {
+          onClick: open,
+          icon: "format-image",
+          showToolTip: "true",
+          label: "Change Image"
+        });
+      }
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: appImagen
+    }))))];
+  },
+  save: props => {
+    const {
+      attributes: {
+        appTitulo,
+        appDescription,
+        appImagen,
+        urlApp,
+        alignContent
+      }
+    } = props;
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "imagen-texto-block"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "contenedor"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "contenido",
+      style: `text-align: ${alignContent}`
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+      value: appTitulo
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+      value: appDescription
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: urlApp,
+      className: "boton"
+    }, "Descargar")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "imagen"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: appImagen
+    }))));
+  }
+});
+
+/***/ }),
+
 /***/ "./src/testimonial/index.js":
 /*!**********************************!*\
   !*** ./src/testimonial/index.js ***!
@@ -211,10 +413,13 @@ const {
 } = wp.blocks;
 const {
   RichText,
-  MediaUpload
+  MediaUpload,
+  InspectorControls,
+  ColorPalette
 } = wp.editor;
 const {
-  IconButton
+  IconButton,
+  PanelBody
 } = wp.components;
 /** import icons customs **/
 
@@ -242,6 +447,9 @@ registerBlockType('ga/testimonial', {
       attribute: 'src',
       selector: '.testimonial-info img',
       default: _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
+    },
+    colorTestimonials: {
+      type: 'string'
     }
   },
   edit: props => {
@@ -250,7 +458,8 @@ registerBlockType('ga/testimonial', {
       attributes: {
         textTestimonials,
         textNameTestimonials,
-        imageTestimonials
+        imageTestimonials,
+        colorTestimonials
       },
       setAttributes
     } = props;
@@ -273,12 +482,34 @@ registerBlockType('ga/testimonial', {
       });
     };
 
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "testimonial-block"
+    const onChangeColorTestimonials = newColor => {
+      setAttributes({
+        colorTestimonials: newColor
+      });
+    };
+
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
+      title: "Color text and line"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "components-base-controls"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "components-base-control__field"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+      className: "components_base_control__label"
+    }, "Color line text"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ColorPalette, {
+      onChange: onChangeColorTestimonials
+    }))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "testimonial-block",
+      style: {
+        borderColor: colorTestimonials
+      }
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("blockquote", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
       placeholder: "Add text testimonials",
       onChange: onChangeTextTestimonials,
-      value: textTestimonials
+      value: textTestimonials,
+      style: {
+        color: colorTestimonials
+      }
     })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "testimonial-info"
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
@@ -301,8 +532,11 @@ registerBlockType('ga/testimonial', {
     }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
       placeholder: "Add name author",
       onChange: onChangeTextNameTestimonials,
-      value: textNameTestimonials
-    }))));
+      value: textNameTestimonials,
+      style: {
+        color: colorTestimonials
+      }
+    })))));
   },
   save: props => {
     // Extra values props state
@@ -310,18 +544,22 @@ registerBlockType('ga/testimonial', {
       attributes: {
         textTestimonials,
         textNameTestimonials,
-        imageTestimonials
+        imageTestimonials,
+        colorTestimonials
       }
     } = props;
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "testimonial-block"
+      className: "testimonial-block",
+      style: `border-color: ${colorTestimonials}`
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("blockquote", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
       value: textTestimonials
     })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "testimonial-info"
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
       src: imageTestimonials
-    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+      style: `color: ${colorTestimonials}`
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
       value: textNameTestimonials
     }))));
   }
@@ -426,6 +664,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _testimonial__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./testimonial */ "./src/testimonial/index.js");
 /* harmony import */ var _hero__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hero */ "./src/hero/index.js");
+/* harmony import */ var _imagetext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./imagetext */ "./src/imagetext/index.js");
+
 
 
 }();
