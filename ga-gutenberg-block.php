@@ -85,9 +85,71 @@ function ga_register_block(){
         );
     }
 
-
-
-
-
-
+    // Add blocks in register_block_type dinamic
+    register_block_type(
+        'ga/dinamico',
+        array(
+            'editor_script' => 'ga-editor-script',
+            'editor_style' => 'ga_editor_styles',
+            'style' => 'ga_editor_frontend_styles',
+            'render_callback' => 'ga_back_recipe_gutenberg'
+        )
+    );
 }
+
+function ga_back_recipe_gutenberg(){
+    //Query database of gutenberg
+   global $post;
+
+   // Get Back recipe
+   $args =  array(
+       'post_type' => 'post',
+       'numberposts' => 3,
+       'post_status' => 'publish'
+   );
+
+   $recipes =  wp_get_recent_posts($args);
+
+   // Check recipes data
+   if(count($recipes) === 0){
+       return "Not recipes";
+   }
+   $body = '';
+   $body .= '<h2 class="titulo-ultimas" > Back Recipes </h2>';
+   $body .= '<ul class="ultimas-recetas contenido">';
+
+   foreach($recipes as $recipe):
+        $post = get_post($recipe['ID']);
+        setup_postdata($post);
+        $body .=  sprintf(
+            ' <li>
+             %1$s
+                <div class="contenido">
+                    <h3>%2$s</h3>
+                    <p>%3$s</p>
+                 </div>
+                <a href="%4$s" class="boton" > Ver más</a>
+            </li>',
+            get_the_post_thumbnail($post),
+            esc_html(get_the_title($post)),
+            esc_html(wp_trim_words(get_the_content($post), 30)),
+            esc_url(get_the_permalink($post)),
+        );
+        wp_reset_postdata();
+    endforeach;
+    $body .= '</ul>';
+    return $body;
+ }
+
+/**Show imagen firts  post in REST API**/
+add_action( 'rest_api_init', function () {
+    register_rest_field( 'post', 'featured_image_src', array(
+        'get_callback' => function ( $post_arr ) {
+            $image_src_arr = wp_get_attachment_image_src( $post_arr['featured_media'], 'medium' );
+ 
+            return $image_src_arr[0];
+        },
+        'update_callback' => null,
+        'schema' => null
+    ) );
+} );

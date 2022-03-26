@@ -43,6 +43,81 @@ var SvgGaLogo = function SvgGaLogo(props) {
 
 /***/ }),
 
+/***/ "./src/dinamico/index.js":
+/*!*******************************!*\
+  !*** ./src/dinamico/index.js ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ga-logo.svg */ "./src/ga-logo.svg");
+
+const {
+  registerBlockType
+} = wp.blocks;
+const {
+  RichText
+} = wp.editor;
+const {
+  withSelect
+} = wp.data;
+/** import icons customs **/
+
+
+registerBlockType('ga/dinamico', {
+  title: 'GA Dinamico Recipe Back',
+  icon: {
+    src: _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
+  },
+  category: 'gourmet-artist',
+  attributes: {},
+  supports: {
+    align: ['wide', 'full']
+  },
+  edit: withSelect(select => {
+    return {
+      //Condsut api wordpress REST API back recipe
+      posts: select("core").getEntityRecords("postType", "post", {
+        per_page: 3,
+        offset: 0
+      })
+    };
+  })(_ref => {
+    let {
+      posts
+    } = _ref;
+
+    // Get data post
+    if (!posts) {
+      return 'Loader ...';
+    }
+
+    if (posts && posts.length === 0) {
+      return 'Not Found';
+    }
+
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Back Recipes"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+      className: "ultimas-recetas contenido"
+    }, posts.map(post => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: post.featured_image_src
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "contenido"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, post.title.rendered), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+      value: post.content.rendered.substring(0, 80) + '...'
+    }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: post.link,
+      className: "boton"
+    }, " Ver m\xE1s")))));
+  }),
+  save: () => {
+    return null;
+  }
+});
+
+/***/ }),
+
 /***/ "./src/hero/index.js":
 /*!***************************!*\
   !*** ./src/hero/index.js ***!
@@ -94,6 +169,9 @@ registerBlockType('ga/hero', {
       type: 'string',
       default: 'center'
     }
+  },
+  supports: {
+    align: ['wide', 'full']
   },
   edit: props => {
     // Extra of values the groups
@@ -166,9 +244,6 @@ registerBlockType('ga/hero', {
       value: descriptionHero,
       onChange: onChangeDescription
     })));
-  },
-  supports: {
-    align: ['wide', 'full']
   },
   save: props => {
     const {
@@ -665,6 +740,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _testimonial__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./testimonial */ "./src/testimonial/index.js");
 /* harmony import */ var _hero__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hero */ "./src/hero/index.js");
 /* harmony import */ var _imagetext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./imagetext */ "./src/imagetext/index.js");
+/* harmony import */ var _dinamico__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dinamico */ "./src/dinamico/index.js");
+
 
 
 

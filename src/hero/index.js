@@ -31,6 +31,9 @@ registerBlockType('ga/hero', {
             default: 'center'
         }
     },
+    supports:{
+        align: ['wide', 'full']
+    },
 
     edit: props => {
 
@@ -92,10 +95,7 @@ registerBlockType('ga/hero', {
             </div>
         )
     },
-    supports:{
-        align: ['wide', 'full']
-    },
-
+  
     save: props => {
         const { attributes: { titleHero, descriptionHero, imageHero, alignContenHero } } = props
 
